@@ -12,7 +12,7 @@ import (
 
 func setupTestConfig() *config.Config {
 	cfg := &config.Config{}
-	err := cfg.Initialize("root", "rootpass", "localhost", "3306", "sample") // Asume que la base de datos de prueba está configurada
+	err := cfg.Initialize("root", "rootpass", "localhost", "3306", "test") // Asume que la base de datos de prueba está configurada
 	if err != nil {
 		panic(err)
 	}
