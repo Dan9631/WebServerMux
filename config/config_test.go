@@ -1,4 +1,4 @@
-package config_test
+package config
 
 import (
 	"encoding/json"
@@ -6,12 +6,10 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
-
-	"webserver.service/config"
 )
 
-func setupTestConfig() *config.Config {
-	cfg := &config.Config{}
+func setupTestConfig() *Config {
+	cfg := &Config{}
 	err := cfg.Initialize("root", "rootpass", "localhost", "3306", "test") // Asume que la base de datos de prueba está configurada
 	if err != nil {
 		panic(err)
@@ -19,7 +17,7 @@ func setupTestConfig() *config.Config {
 	return cfg
 }
 
-func createTable(cfg *config.Config) {
+func createTable(cfg *Config) {
 	createTableQuery := `
 	   create table IF NOT EXISTS  
 	    products(id int NOT NULL AUTO_INCREMENT,
@@ -34,7 +32,7 @@ func createTable(cfg *config.Config) {
 	}
 }
 
-func cleanTable(cfg *config.Config) {
+func cleanTable(cfg *Config) {
 	cleanTableQuery := `DELETE FROM products;`
 	_, err := cfg.DB.Exec(cleanTableQuery)
 	if err != nil {
@@ -47,7 +45,7 @@ func cleanTable(cfg *config.Config) {
 	}
 }
 
-func insertData(cfg *config.Config) {
+func insertData(cfg *Config) {
 	insertDataQuery := `
 		INSERT INTO products (name, quantity, price) VALUES
 		('Producto 1', 10, 99.99),
